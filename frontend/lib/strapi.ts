@@ -23,8 +23,7 @@ const QUERY_HOME_PAGE = {
 
 export async function getHomePage() {
   "use cache"
-
-  cacheLife({ expire: 60 });
+  cacheLife("hours");
   
   const query = qs.stringify(QUERY_HOME_PAGE)
   const response = await getStrapiData(`/api/home-page?${query}`);
@@ -32,7 +31,6 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
-    console.log('strapiData');
 
   try {
     const response = await fetch(`${STRAPI_BASE_URL}${url}`);
@@ -60,7 +58,6 @@ export async function registerUserService (userData: object) {
     })
 
     const data = await response.json();
-    console.log(data)
     return data
   } catch (error) {
     console.error("Error registering user:", error);
@@ -82,7 +79,6 @@ export async function loginUserService (userData: object) {
     })
 
     const data = await response.json();
-    console.log(data)
     return data
   } catch (error) {
     console.error("Error logging in user:", error);
